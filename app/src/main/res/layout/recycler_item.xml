@@ -63,5 +63,6 @@
             android:text="lang"
             android:textColor="@color/green_700"
             android:textSize="14sp" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

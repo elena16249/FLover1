@@ -123,9 +123,18 @@
                                 />
                         </com.google.android.material.card.MaterialCardView>
 
+<!--                        <TextView-->
+<!--                            android:id="@+id/condition1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:layout_marginTop="50dp"-->
+<!--                            android:text="Step1"-->
+<!--                            />-->
+
                         <TextView
-                            android:id="@+id/detailStep1"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/condition1"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
@@ -162,8 +171,8 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
-                            android:id="@+id/detailStep2"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/condition2"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
@@ -213,8 +222,8 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
-                            android:id="@+id/detailStep3"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/condition3"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
@@ -250,8 +259,8 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
-                            android:id="@+id/detailStep4"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/condition4"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"

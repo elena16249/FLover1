@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            //testr
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
