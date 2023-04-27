@@ -1,5 +1,6 @@
 package com.example.flover1;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
 
 
-public class DetailedActivity extends AppCompatActivity {
+public class  DetailedActivity extends AppCompatActivity {
 
     TextView description, flowerName, accessories;
     ImageView flowerImage;
@@ -18,6 +19,7 @@ public class DetailedActivity extends AppCompatActivity {
     String key = "";
     String imageUrl = "";
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class DetailedActivity extends AppCompatActivity {
         flowerImage = findViewById(R.id.detailImage);
         flowerName = findViewById(R.id.detailTitle);
         accessories = findViewById(R.id.detailLang);
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
