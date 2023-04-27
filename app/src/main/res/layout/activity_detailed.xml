@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/viewpage">
+    android:background="@drawable/homebackground">
 
 
     <LinearLayout
@@ -38,7 +38,9 @@
         <ScrollView
             android:background="@drawable/scroll_shaped_background"
             android:layout_width="match_parent"
-            android:layout_height="700dp">
+            android:layout_height="700dp"
+            android:backgroundTint="@color/viewpage1">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -109,7 +111,8 @@
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp">
+                            app:checkedIconSize="25dp"
+                            android:backgroundTint="@color/viewpage">
 
                             <ImageView
                                 android:id="@+id/detailDrop"
@@ -123,14 +126,7 @@
                                 />
                         </com.google.android.material.card.MaterialCardView>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/condition1"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:layout_marginTop="50dp"-->
-<!--                            android:text="Step1"-->
-<!--                            />-->
+
 
                         <TextView
                             android:id="@+id/condition1"
@@ -155,7 +151,8 @@
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp">
+                            app:checkedIconSize="25dp"
+                            android:backgroundTint="@color/viewpage">
 
                             <ImageView
                                 android:id="@+id/detailCelsius"
@@ -207,7 +204,8 @@
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp">
+                            app:checkedIconSize="25dp"
+                            android:backgroundTint="@color/viewpage">
 
                             <ImageView
                                 android:id="@+id/detailSun"
@@ -243,7 +241,8 @@
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp">
+                            app:checkedIconSize="25dp"
+                            android:backgroundTint="@color/viewpage">
 
                             <ImageView
                                 android:id="@+id/detailWatering"
