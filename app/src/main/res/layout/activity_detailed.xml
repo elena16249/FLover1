@@ -14,16 +14,15 @@
         tools:context=".DetailedActivity">
 
 
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="210dp"
             android:layout_height="210dp"
+            android:layout_marginVertical="40dp"
+
             android:layout_marginTop="10dp"
+           android:layout_gravity="center"
             app:cardCornerRadius="150dp"
-            app:checkedIconSize="25dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginVertical="40dp">
+            app:checkedIconSize="25dp">
 
             <ImageView
                 android:id="@+id/detailImage"
@@ -36,16 +35,15 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ScrollView
-            android:background="@drawable/scroll_shaped_background"
             android:layout_width="match_parent"
             android:layout_height="700dp"
+            android:background="@drawable/scroll_shaped_background"
             android:backgroundTint="@color/viewpage1">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/detailTitle"
@@ -63,8 +61,8 @@
                     android:id="@+id/detailDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginVertical="5dp"
+                    android:layout_marginStart="24dp"
                     android:fontFamily="@font/inter_light"
                     android:text="Description"
                     android:textColor="@color/black"
@@ -92,8 +90,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detailLang"
-                   >
+                    app:layout_constraintTop_toBottomOf="@+id/detailLang">
 
                     <LinearLayout
                         android:id="@+id/step1"
@@ -109,9 +106,9 @@
                             android:layout_marginVertical="40dp"
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
+                            android:backgroundTint="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp"
-                            android:backgroundTint="@color/viewpage">
+                            app:checkedIconSize="25dp">
 
                             <ImageView
                                 android:id="@+id/detailDrop"
@@ -126,14 +123,13 @@
                         </com.google.android.material.card.MaterialCardView>
 
 
-
                         <TextView
                             android:id="@+id/condition1"
                             android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
-                            android:text="Step1" />
+                            android:text="Condition1" />
 
                     </LinearLayout>
 
@@ -149,9 +145,9 @@
                             android:layout_marginVertical="40dp"
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
+                            android:backgroundTint="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp"
-                            android:backgroundTint="@color/viewpage">
+                            app:checkedIconSize="25dp">
 
                             <ImageView
                                 android:id="@+id/detailCelsius"
@@ -160,7 +156,6 @@
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/celsius"
-
 
 
                                 />
@@ -172,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
-                            android:text="Step2" />
+                            android:text="Condition2" />
 
                     </LinearLayout>
 
@@ -183,10 +178,10 @@
                     android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-40dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="-40dp"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                     <LinearLayout
@@ -202,9 +197,9 @@
                             android:layout_marginVertical="40dp"
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
+                            android:backgroundTint="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp"
-                            android:backgroundTint="@color/viewpage">
+                            app:checkedIconSize="25dp">
 
                             <ImageView
                                 android:id="@+id/detailSun"
@@ -224,7 +219,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
-                            android:text="Step3" />
+                            android:text="Condition3" />
 
                     </LinearLayout>
 
@@ -239,9 +234,9 @@
                             android:layout_marginVertical="40dp"
                             android:layout_marginLeft="20dp"
                             android:background="@color/viewpage"
+                            android:backgroundTint="@color/viewpage"
                             app:cardCornerRadius="150dp"
-                            app:checkedIconSize="25dp"
-                            android:backgroundTint="@color/viewpage">
+                            app:checkedIconSize="25dp">
 
                             <ImageView
                                 android:id="@+id/detailWatering"
@@ -262,7 +257,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
-                            android:text="Step4" />
+                            android:text="Condition4" />
 
                     </LinearLayout>
 
@@ -277,6 +272,115 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailTitle" />
 
+                <TextView
+                    android:id="@+id/Steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="350dp"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Steps"
+                    android:textColor="@color/green_700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailTitle" />
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/materialcardview1"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="450dp"
+                            android:backgroundTint="@color/viewpage"
+                            app:cardCornerRadius="20dp"
+                            android:clickable="true"
+                            android:outlineAmbientShadowColor="@color/viewpage"
+                           >
+
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="110dp"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/watering_step"/>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/materialcardview2"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="450dp"
+                            android:backgroundTint="@color/viewpage"
+                            app:cardCornerRadius="20dp"
+                            android:clickable="true"
+
+                            >
+
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/sun_step" />
+
+                        </com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/materialcardview3"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:clickable="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="450dp"
+                            android:backgroundTint="@color/viewpage"
+                            app:cardCornerRadius="20dp"
+                         >
+
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/celsius_step" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/materialcardview4"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="450dp"
+                            android:backgroundTint="@color/viewpage"
+                            app:cardCornerRadius="20dp"
+                            android:clickable="true"
+                            >
+
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/finish_step" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </LinearLayout>
+
+
+                </HorizontalScrollView>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

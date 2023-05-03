@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     FloatingActionButton fab;
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     List<Flower> dataList;
     ListAdapter adapter;
     SearchView searchView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ListAdapter(MainActivity.this, dataList);
         recyclerView.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Flowers");
+
         dialog.show();
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
