@@ -24,7 +24,6 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public ListAdapter(Context context, List<Flower> dataList) {
         this.context = context;
         this.dataList = dataList;
-
     }
 
     @NonNull
@@ -40,7 +39,6 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recTitle.setText(dataList.get(position).getName());
         holder.recDesc.setText(dataList.get(position).getAccessories());
         holder.recLang.setText(dataList.get(position).getDescription());
-
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,12 +47,12 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 intent.putExtra("Description", dataList.get(holder.getAdapterPosition()).getDescription());
                 intent.putExtra("FlowerName", dataList.get(holder.getAdapterPosition()).getName());
                 intent.putExtra("Accessories", dataList.get(holder.getAdapterPosition()).getAccessories());
-                intent.putExtra("Condition1",dataList.get(holder.getAdapterPosition()).getCondition1());
-                intent.putExtra("Condition2",dataList.get(holder.getAdapterPosition()).getCondition2());
-                intent.putExtra("Condition3",dataList.get(holder.getAdapterPosition()).getCondition3());
-                intent.putExtra("Condition4",dataList.get(holder.getAdapterPosition()).getCondition4());
-            intent.putExtra("Key", holder.getAdapterPosition());
-
+                intent.putExtra("Condition1", dataList.get(holder.getAdapterPosition()).getCondition1());
+                intent.putExtra("Condition2", dataList.get(holder.getAdapterPosition()).getCondition2());
+                intent.putExtra("Condition3", dataList.get(holder.getAdapterPosition()).getCondition3());
+                intent.putExtra("Condition4", dataList.get(holder.getAdapterPosition()).getCondition4());
+                intent.putExtra("Dialog1", dataList.get(holder.getAdapterPosition()).getDialog1());
+                intent.putExtra("Key", holder.getAdapterPosition());
                 context.startActivity(intent);
             }
         });
@@ -73,7 +71,7 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 class MyViewHolder extends RecyclerView.ViewHolder {
     ImageView recImage;
-    TextView recTitle, recDesc, recLang,condition1, condition2,condition3, condition4;
+    TextView recTitle, recDesc, recLang, condition1, condition2, condition3, condition4, dialog1;
     CardView recCard;
 
     public MyViewHolder(@NonNull View itemView) {
@@ -87,5 +85,6 @@ class MyViewHolder extends RecyclerView.ViewHolder {
         condition2 = itemView.findViewById(R.id.condition2);
         condition3 = itemView.findViewById(R.id.condition3);
         condition4 = itemView.findViewById(R.id.condition4);
+        dialog1 = itemView.findViewById(R.id.dialog);
     }
 }
