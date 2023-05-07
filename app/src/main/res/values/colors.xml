@@ -17,6 +17,7 @@
     <color name="viewpage">#E1FFED</color>
     <color name="viewpage1">#FAFFF1</color>
     <color name="grey">#d2d2d2</color>
+    <color name="light_gray">#737373</color>
 
 
 </resources>

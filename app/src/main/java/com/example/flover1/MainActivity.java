@@ -3,11 +3,15 @@ package com.example.flover1;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,10 +37,13 @@ public class MainActivity extends AppCompatActivity {
     List<Flower> dataList;
     ListAdapter adapter;
     SearchView searchView;
+
+    Button roseFilter, tulipFilter, redFilter, whiteFilter, yellowFilter;
+
     @SuppressLint("MissingInflatedId")
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
@@ -53,6 +60,136 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ListAdapter(MainActivity.this, dataList);
         recyclerView.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Flowers");
+
+
+
+        roseFilter = findViewById(R.id.rose);
+        tulipFilter = findViewById(R.id.tulip);
+        redFilter = findViewById(R.id.red);
+        whiteFilter = findViewById(R.id.white);
+        yellowFilter = findViewById(R.id.yellow);
+
+        roseFilter.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("ResourceType")
+                String text = roseFilter.getText().toString();
+                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+
+                ArrayList<Flower> searchList = new ArrayList<>();
+                for (Flower dataClass : dataList) {
+                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                        searchList.add(dataClass);
+
+                    }
+                }
+                adapter.searchDataList(searchList);
+                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+        tulipFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = tulipFilter.getText().toString();
+                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+
+                ArrayList<Flower> searchList = new ArrayList<>();
+                for (Flower dataClass : dataList) {
+                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                        searchList.add(dataClass);
+                    }
+                }
+
+                // Update the adapter with the filtered data
+                adapter.searchDataList(searchList);
+
+                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        redFilter.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("ResourceType")
+                String text = tulipFilter.getText().toString();
+                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+
+
+                ArrayList<Flower> searchList = new ArrayList<>();
+                for (Flower dataClass : dataList) {
+                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                        searchList.add(dataClass);
+
+                    }
+                }
+                adapter.searchDataList(searchList);
+                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+        whiteFilter.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("ResourceType")
+                String text = whiteFilter.getText().toString();
+                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                ArrayList<Flower> searchList = new ArrayList<>();
+                for (Flower dataClass : dataList) {
+                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                        searchList.add(dataClass);
+
+                    }
+                }
+                adapter.searchDataList(searchList);
+                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+        yellowFilter.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("ResourceType")
+                String text = yellowFilter.getText().toString();
+                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+
+
+                ArrayList<Flower> searchList = new ArrayList<>();
+                for (Flower dataClass : dataList) {
+                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+
+                        searchList.add(dataClass);
+
+                    }
+                }
+                adapter.searchDataList(searchList);
+                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
