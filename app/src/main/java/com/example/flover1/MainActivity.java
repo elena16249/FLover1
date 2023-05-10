@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     ListAdapter adapter;
     SearchView searchView;
 
-    Button roseFilter, tulipFilter, redFilter, whiteFilter, yellowFilter;
+    Button roseFilter, tulipFilter, pinkFilter, whiteFilter, yellowFilter;
 
     @SuppressLint("MissingInflatedId")
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         roseFilter = findViewById(R.id.rose);
         tulipFilter = findViewById(R.id.tulip);
-        redFilter = findViewById(R.id.red);
+        pinkFilter = findViewById(R.id.pink);
         whiteFilter = findViewById(R.id.white);
         yellowFilter = findViewById(R.id.yellow);
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 String text = roseFilter.getText().toString();
                 roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
                 tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 adapter.searchDataList(searchList);
-                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+
             }
         });
         tulipFilter.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 String text = tulipFilter.getText().toString();
                 tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
                 roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
 
@@ -112,18 +112,18 @@ public class MainActivity extends AppCompatActivity {
                 // Update the adapter with the filtered data
                 adapter.searchDataList(searchList);
 
-                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+
             }
         });
 
 
-        redFilter.setOnClickListener(new View.OnClickListener() {
+        pinkFilter.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
                 @SuppressLint("ResourceType")
-                String text = tulipFilter.getText().toString();
-                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+                String text = pinkFilter.getText().toString();
+                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
                 roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 adapter.searchDataList(searchList);
-                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+
             }
         });
         whiteFilter.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 String text = whiteFilter.getText().toString();
                 whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
                 roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 ArrayList<Flower> searchList = new ArrayList<>();
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 adapter.searchDataList(searchList);
-                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+
             }
         });
         yellowFilter.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 String text = yellowFilter.getText().toString();
                 yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
                 roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                redFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
                 tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
 
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 adapter.searchDataList(searchList);
-                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+               
             }
         });
 
