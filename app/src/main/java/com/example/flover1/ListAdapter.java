@@ -87,4 +87,5 @@ class MyViewHolder extends RecyclerView.ViewHolder {
         condition4 = itemView.findViewById(R.id.condition4);
         dialog1 = itemView.findViewById(R.id.dialog);
     }
+
 }

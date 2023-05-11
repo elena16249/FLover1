@@ -79,6 +79,21 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="18sp"/>
+            <CheckBox
+                android:id="@+id/rememberMeCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remember Me"
+                android:layout_marginTop="16dp" />
+            <TextView
+                android:id="@+id/forgotPasswordText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:clickable="true"
+                android:textColor="@color/green_700"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
 
         </LinearLayout>
 

@@ -5,7 +5,7 @@ public class User {
         private String name;
         private String email;
 
-        public User() {
+        public User(String username, String name, String email, String password) {
             // Required empty public constructor
         }
 
