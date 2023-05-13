@@ -1,12 +1,16 @@
 package com.example.flover1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -38,7 +42,20 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Glide.with(context).load(dataList.get(position).getImage()).into(holder.recImage);
         holder.recTitle.setText(dataList.get(position).getName());
         holder.recDesc.setText(dataList.get(position).getAccessories());
-        holder.recLang.setText(dataList.get(position).getDescription());
+//        holder.recLang.setText(dataList.get(position).getDescription());
+
+
+
+        holder.favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SavedActivity.class);
+                intent.putExtra("FlowerName1", dataList.get(holder.getAdapterPosition()).getName());
+                intent.putExtra("FlowerImage1", dataList.get(holder.getAdapterPosition()).getImage());
+                context.startActivity(intent);
+            }
+        });
+
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +73,7 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -74,18 +92,21 @@ class MyViewHolder extends RecyclerView.ViewHolder {
     TextView recTitle, recDesc, recLang, condition1, condition2, condition3, condition4, dialog1;
     CardView recCard;
 
+    ImageButton favButton;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         recImage = itemView.findViewById(R.id.recImage);
         recCard = itemView.findViewById(R.id.recCard);
         recDesc = itemView.findViewById(R.id.recDesc);
-        recLang = itemView.findViewById(R.id.recLang);
+
         recTitle = itemView.findViewById(R.id.recTitle);
         condition1 = itemView.findViewById(R.id.condition1);
         condition2 = itemView.findViewById(R.id.condition2);
         condition3 = itemView.findViewById(R.id.condition3);
         condition4 = itemView.findViewById(R.id.condition4);
         dialog1 = itemView.findViewById(R.id.dialog);
+
+        favButton = itemView.findViewById(R.id.favButton);
     }
 
 }
