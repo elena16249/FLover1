@@ -6,21 +6,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/homebackground">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".DetailedActivity">
 
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="210dp"
             android:layout_height="210dp"
+            android:layout_gravity="center"
             android:layout_marginVertical="40dp"
-
             android:layout_marginTop="10dp"
-           android:layout_gravity="center"
             app:cardCornerRadius="150dp"
             app:checkedIconSize="25dp">
 
@@ -29,17 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/rose"
-
-                />
+                android:src="@drawable/rose" />
         </com.google.android.material.card.MaterialCardView>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="700dp"
+            android:layout_height="1000dp"
             android:background="@drawable/scroll_shaped_background"
             android:backgroundTint="@color/viewpage1">
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -57,7 +51,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <TextView
                     android:id="@+id/detailDesc"
                     android:layout_width="match_parent"
@@ -70,7 +63,6 @@
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailTitle" />
-
 
                 <TextView
                     android:id="@+id/detailLang"
@@ -87,9 +79,9 @@
 
                 <ImageButton
                     android:id="@+id/favButton"
-                    android:layout_marginTop="35dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
                     android:layout_marginEnd="45dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/baseline_favorite_border_24"
@@ -105,14 +97,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailLang">
 
-
                     <LinearLayout
                         android:id="@+id/step1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-
-                        >
+                        android:layout_weight="1">
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="50dp"
@@ -130,12 +119,8 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/drop"
-
-
-                                />
+                                android:src="@drawable/drop" />
                         </com.google.android.material.card.MaterialCardView>
-
 
                         <TextView
                             android:id="@+id/condition1"
@@ -144,7 +129,6 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
                             android:text="Condition1" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -169,10 +153,7 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/celsius"
-
-
-                                />
+                                android:src="@drawable/celsius" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -182,10 +163,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
                             android:text="Condition2" />
-
                     </LinearLayout>
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -201,9 +179,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-
-                        >
+                        android:layout_weight="1">
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="50dp"
@@ -221,10 +197,7 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/sun"
-
-
-                                />
+                                android:src="@drawable/sun" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -234,7 +207,6 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
                             android:text="Condition3" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -257,12 +229,8 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
-
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/watering_plants"
-
-
-                                />
+                                android:src="@drawable/watering_plants" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -272,9 +240,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="50dp"
                             android:text="Condition4" />
-
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <View
@@ -311,36 +277,32 @@
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/materialcardview1"
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="450dp"
                             android:backgroundTint="@color/viewpage"
-                            app:cardCornerRadius="20dp"
                             android:clickable="true"
                             android:outlineAmbientShadowColor="@color/viewpage"
-                           >
+                            app:cardCornerRadius="20dp">
 
                             <ImageView
                                 android:layout_width="110dp"
                                 android:layout_height="110dp"
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/watering_step"/>
-
+                                android:src="@drawable/watering_step" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/materialcardview2"
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="450dp"
                             android:backgroundTint="@color/viewpage"
-                            app:cardCornerRadius="20dp"
                             android:clickable="true"
-
-                            >
+                            app:cardCornerRadius="20dp">
 
                             <ImageView
                                 android:layout_width="70dp"
@@ -348,18 +310,17 @@
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/sun_step" />
-
                         </com.google.android.material.card.MaterialCardView>
+
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/materialcardview3"
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
-                            android:clickable="true"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="450dp"
                             android:backgroundTint="@color/viewpage"
-                            app:cardCornerRadius="20dp"
-                         >
+                            android:clickable="true"
+                            app:cardCornerRadius="20dp">
 
                             <ImageView
                                 android:layout_width="70dp"
@@ -367,19 +328,17 @@
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/celsius_step" />
-
                         </com.google.android.material.card.MaterialCardView>
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/materialcardview4"
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="450dp"
                             android:backgroundTint="@color/viewpage"
-                            app:cardCornerRadius="20dp"
                             android:clickable="true"
-                            >
+                            app:cardCornerRadius="20dp">
 
                             <ImageView
                                 android:layout_width="70dp"
@@ -387,21 +346,10 @@
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/finish_step" />
-
                         </com.google.android.material.card.MaterialCardView>
-
-
                     </LinearLayout>
-
-
                 </HorizontalScrollView>
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </ScrollView>
-
     </LinearLayout>
-
-
 </ScrollView>
