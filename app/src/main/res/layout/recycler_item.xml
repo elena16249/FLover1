@@ -37,32 +37,7 @@
             android:textColor="@color/green_700"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/recDesc"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/recTitle"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="12dp"
-            android:layout_toEndOf="@id/recImage"
-            android:maxLines="1"
-            android:text="desc"
-            android:textColor="@color/green_700"
-            android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/recLang"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/recTitle"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="-31dp"
-            android:layout_marginBottom="12dp"
-            android:layout_toEndOf="@id/recDesc"
-            android:maxLines="1"
-
-            android:textColor="@color/green_700"
-            android:textSize="14sp" />
         <ImageButton
             android:id="@+id/favButton"
             android:layout_width="wrap_content"

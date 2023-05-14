@@ -101,7 +101,6 @@ class MyViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         recImage = itemView.findViewById(R.id.recImage);
         recCard = itemView.findViewById(R.id.recCard);
-        recDesc = itemView.findViewById(R.id.recDesc);
 
         recTitle = itemView.findViewById(R.id.recTitle);
         condition1 = itemView.findViewById(R.id.condition1);

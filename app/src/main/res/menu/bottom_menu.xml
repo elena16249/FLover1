@@ -10,6 +10,6 @@
         android:title="Saved" />
     <item
         android:id="@+id/bottom_profile"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/baseline_notifications_24"
         android:title="Profile" />
 </menu>
