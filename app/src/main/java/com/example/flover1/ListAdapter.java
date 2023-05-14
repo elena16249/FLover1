@@ -3,6 +3,7 @@ package com.example.flover1;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(dataList.get(position).getImage()).into(holder.recImage);
         holder.recTitle.setText(dataList.get(position).getName());
-        holder.recDesc.setText(dataList.get(position).getAccessories());
+//        holder.recDesc.setText(dataList.get(position).getAccessories());
 //        holder.recLang.setText(dataList.get(position).getDescription());
 
 
@@ -60,7 +61,7 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("Image", dataList.get(holder.getAdapterPosition()).getImage());
+                /*intent.putExtra("Image", dataList.get(holder.getAdapterPosition()).getImage());
                 intent.putExtra("Description", dataList.get(holder.getAdapterPosition()).getDescription());
                 intent.putExtra("FlowerName", dataList.get(holder.getAdapterPosition()).getName());
                 intent.putExtra("Accessories", dataList.get(holder.getAdapterPosition()).getAccessories());
@@ -69,7 +70,10 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 intent.putExtra("Condition3", dataList.get(holder.getAdapterPosition()).getCondition3());
                 intent.putExtra("Condition4", dataList.get(holder.getAdapterPosition()).getCondition4());
                 intent.putExtra("Dialog1", dataList.get(holder.getAdapterPosition()).getDialog1());
-                intent.putExtra("Key", holder.getAdapterPosition());
+                intent.putExtra("Key", holder.getAdapterPosition());*/
+
+                intent.putExtra("flower",dataList.get(position));
+
                 context.startActivity(intent);
             }
         });

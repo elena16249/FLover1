@@ -222,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot flowerSnapshot : snapshot.getChildren()) {
                     for (DataSnapshot itemSnapshot : flowerSnapshot.getChildren()) {
                         Flower flower = itemSnapshot.getValue(Flower.class);
-                        flower.setKey(itemSnapshot.getKey());
                         dataList.add(flower);
                     }
                 }
