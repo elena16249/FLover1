@@ -6,11 +6,20 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,18 +28,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SavedActivity extends AppCompatActivity {
-    private RecyclerView savedRecyclerView;
-    private SavedAdapter savedAdapter;
-    private List<FlowerSaved> savedItemList;
 
-    private SharedPreferences sharedPreferences;
-    private static final String SHARED_PREFS_KEY = "saved_items";
+
+    RecyclerView recyclerView;
+    List<FlowerSaved> dataList;
+    ValueEventListener eventListener;
+    SavedAdapter adapter;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
 
+        recyclerView = findViewById(R.id.savedRecyclerView);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(SavedActivity.this, 1);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        AlertDialog.Builder builder = new AlertDialog.Builder(SavedActivity.this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_layout);
+        AlertDialog dialog = builder.create();
+
+        dataList = new ArrayList<>();
+        adapter = new SavedAdapter(SavedActivity.this, dataList);
+        recyclerView.setAdapter(adapter);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("favoriteFlowers");
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_saved);
 
@@ -53,62 +78,42 @@ public class SavedActivity extends AppCompatActivity {
             return false;
         });
 
-        sharedPreferences = getSharedPreferences(SHARED_PREFS_KEY, MODE_PRIVATE);
 
-        // Restoring saved items from shared preferences
-        savedItemList = getSavedItemListFromPreferences();
 
-        // Set up RecyclerView and adapter
-        savedRecyclerView = findViewById(R.id.savedRecyclerView);
-        savedAdapter = new SavedAdapter(savedItemList);
-        savedRecyclerView.setAdapter(savedAdapter);
-        savedRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Retrieve the FlowerName from the intent
-        Intent intent = getIntent();
-        String flowerName = intent.getStringExtra("FlowerName1");
-        String savedImage = intent.getStringExtra("FlowerImage1");
-        if (flowerName != null && !isFlowerNameAlreadyAdded(flowerName)) {
-            FlowerSaved newFlowerSaved = new FlowerSaved(flowerName, savedImage);
-            savedItemList.add(newFlowerSaved);
-            savedAdapter.notifyItemInserted(savedItemList.size() - 1);
-            saveItemListToPreferences(savedItemList);
-        }
-    }
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<FlowerSaved> favoriteFlowers = new ArrayList<>();
 
-    private List<FlowerSaved> getSavedItemListFromPreferences() {
-        String savedItemsJson = sharedPreferences.getString(SHARED_PREFS_KEY, "");
-        if (!savedItemsJson.isEmpty()) {
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<FlowerSaved>>() {}.getType();
-            return gson.fromJson(savedItemsJson, listType);
-        }
-        return new ArrayList<>();
-    }
+                for (DataSnapshot flowerSnapshot : dataSnapshot.getChildren()) {
+                    FlowerSaved favoriteFlower = flowerSnapshot.getValue(FlowerSaved.class);
 
-    private void saveItemListToPreferences(List<FlowerSaved> itemList) {
-        Gson gson = new Gson();
-        String savedItemsJson = gson.toJson(itemList);
-        sharedPreferences.edit().putString(SHARED_PREFS_KEY, savedItemsJson).apply();
-    }
+                    if (favoriteFlower != null) {
+                        favoriteFlowers.add(favoriteFlower);
+                    }
+                }
 
-    private boolean isFlowerNameAlreadyAdded(String flowerName) {
-        for (FlowerSaved flower : savedItemList) {
-            if (flower.getSavedFlowername().equals(flowerName)) {
-                return true; // Flower name already exists
+                dataList.clear();
+                dataList.addAll(favoriteFlowers);
+                adapter.notifyDataSetChanged();
             }
-        }
-        return false; // Flower name doesn't exist
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle any errors that occur during the database operation
+            }
+        });
     }
-    public void deleteItem(int position) {
-        savedItemList.remove(position);
-        savedAdapter.notifyItemRemoved(position);
-        saveItemListToPreferences(savedItemList);
-    }
+
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        savedAdapter.notifyDataSetChanged();
+
     }
 }

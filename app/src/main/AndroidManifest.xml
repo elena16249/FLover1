@@ -67,6 +67,10 @@
                 android:name="android.intent.action.MAIN"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".SavedDetailActivity"
+            android:label="Saved Detail Activity">
+        </activity>
     </application>
 
 </manifest>

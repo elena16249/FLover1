@@ -1,5 +1,6 @@
 package com.example.flover1;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +19,18 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
@@ -39,46 +50,96 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(dataList.get(position).getImage()).into(holder.recImage);
         holder.recTitle.setText(dataList.get(position).getName());
-//        holder.recDesc.setText(dataList.get(position).getAccessories());
-//        holder.recLang.setText(dataList.get(position).getDescription());
-
 
 
         holder.favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, SavedActivity.class);
-                intent.putExtra("FlowerName1", dataList.get(holder.getAdapterPosition()).getName());
-                intent.putExtra("FlowerImage1", dataList.get(holder.getAdapterPosition()).getImage());
-                context.startActivity(intent);
+                Flower favoriteFlower = dataList.get(position);
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                String currentUserId = firebaseAuth.getCurrentUser().getUid();
+                DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+
+                // Check if the flower already exists in the favoriteFlowers node
+                Query query = currentUserRef.child("favoriteFlowers").orderByChild("name").equalTo(favoriteFlower.getName());
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boolean isFavorite = false;
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Flower flower = snapshot.getValue(Flower.class);
+                            if (flower != null && flower.getName().equals(favoriteFlower.getName())) {
+                                isFavorite = true;
+                                snapshot.getRef().removeValue();
+                                break;
+                            }
+                        }
+
+                        if (isFavorite) {
+                            holder.favButton.setImageResource(R.drawable.baseline_favorite_border_24);
+                        } else {
+                            DatabaseReference newFavoriteRef = currentUserRef.child("favoriteFlowers").push();
+                            newFavoriteRef.setValue(favoriteFlower);
+                            holder.favButton.setImageResource(R.drawable.baseline_favorite1_24);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle the error
+                    }
+                });
             }
         });
+
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+
+
+        currentUserRef.child("favoriteFlowers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isFavorite = false;
+                String currentFlowerId = dataList.get(holder.getAdapterPosition()).getName();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Flower flower = snapshot.getValue(Flower.class);
+                    if (flower != null && flower.getName() != null && currentFlowerId != null && flower.getName().equals(currentFlowerId)) {
+                        isFavorite = true;
+                        break;
+                    }
+                }
+
+                if (isFavorite) {
+                    holder.favButton.setImageResource(R.drawable.baseline_favorite1_24);
+                } else {
+                    holder.favButton.setImageResource(R.drawable.baseline_favorite_border_24);
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
+
 
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailedActivity.class);
-                /*intent.putExtra("Image", dataList.get(holder.getAdapterPosition()).getImage());
-                intent.putExtra("Description", dataList.get(holder.getAdapterPosition()).getDescription());
-                intent.putExtra("FlowerName", dataList.get(holder.getAdapterPosition()).getName());
-                intent.putExtra("Accessories", dataList.get(holder.getAdapterPosition()).getAccessories());
-                intent.putExtra("Condition1", dataList.get(holder.getAdapterPosition()).getCondition1());
-                intent.putExtra("Condition2", dataList.get(holder.getAdapterPosition()).getCondition2());
-                intent.putExtra("Condition3", dataList.get(holder.getAdapterPosition()).getCondition3());
-                intent.putExtra("Condition4", dataList.get(holder.getAdapterPosition()).getCondition4());
-                intent.putExtra("Dialog1", dataList.get(holder.getAdapterPosition()).getDialog1());
-                intent.putExtra("Key", holder.getAdapterPosition());*/
-
-                intent.putExtra("flower",dataList.get(position));
-
+                intent.putExtra("flower", dataList.get(position));
                 context.startActivity(intent);
             }
         });
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -97,6 +158,7 @@ class MyViewHolder extends RecyclerView.ViewHolder {
     CardView recCard;
 
     ImageButton favButton;
+
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         recImage = itemView.findViewById(R.id.recImage);

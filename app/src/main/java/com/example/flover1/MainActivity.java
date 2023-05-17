@@ -72,124 +72,105 @@ public class MainActivity extends AppCompatActivity {
         whiteFilter = findViewById(R.id.white);
         yellowFilter = findViewById(R.id.yellow);
 
-        roseFilter.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                @SuppressLint("ResourceType")
-                String text = roseFilter.getText().toString();
-                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
-                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+        roseFilter.setOnClickListener(v -> {
+            @SuppressLint("ResourceType")
+            String text = roseFilter.getText().toString();
+            roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+            tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
 
-                ArrayList<Flower> searchList = new ArrayList<>();
-                for (Flower dataClass : dataList) {
-                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
-                        searchList.add(dataClass);
+            ArrayList<Flower> searchList = new ArrayList<>();
+            for (Flower dataClass : dataList) {
+                if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                    searchList.add(dataClass);
 
-                    }
                 }
-                adapter.searchDataList(searchList);
-
             }
+            adapter.searchDataList(searchList);
+
         });
-        tulipFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = tulipFilter.getText().toString();
-                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
-                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+        tulipFilter.setOnClickListener(v -> {
+            String text = tulipFilter.getText().toString();
+            tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+            roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
 
-                ArrayList<Flower> searchList = new ArrayList<>();
-                for (Flower dataClass : dataList) {
-                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
-                        searchList.add(dataClass);
-                    }
+            ArrayList<Flower> searchList = new ArrayList<>();
+            for (Flower dataClass : dataList) {
+                if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                    searchList.add(dataClass);
                 }
-
-                // Update the adapter with the filtered data
-                adapter.searchDataList(searchList);
-
-
             }
+
+            // Update the adapter with the filtered data
+            adapter.searchDataList(searchList);
+
+
         });
 
 
-        pinkFilter.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                @SuppressLint("ResourceType")
-                String text = pinkFilter.getText().toString();
-                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
-                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+        pinkFilter.setOnClickListener(v -> {
+            @SuppressLint("ResourceType")
+            String text = pinkFilter.getText().toString();
+            pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+            roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
 
 
-                ArrayList<Flower> searchList = new ArrayList<>();
-                for (Flower dataClass : dataList) {
-                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
-                        searchList.add(dataClass);
+            ArrayList<Flower> searchList = new ArrayList<>();
+            for (Flower dataClass : dataList) {
+                if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                    searchList.add(dataClass);
 
-                    }
                 }
-                adapter.searchDataList(searchList);
-
             }
+            adapter.searchDataList(searchList);
+
         });
-        whiteFilter.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                @SuppressLint("ResourceType")
-                String text = whiteFilter.getText().toString();
-                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
-                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                ArrayList<Flower> searchList = new ArrayList<>();
-                for (Flower dataClass : dataList) {
-                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
-                        searchList.add(dataClass);
+        whiteFilter.setOnClickListener(v -> {
+            @SuppressLint("ResourceType")
+            String text = whiteFilter.getText().toString();
+            whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+            roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            ArrayList<Flower> searchList = new ArrayList<>();
+            for (Flower dataClass : dataList) {
+                if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+                    searchList.add(dataClass);
 
-                    }
                 }
-                adapter.searchDataList(searchList);
-
             }
+            adapter.searchDataList(searchList);
+
         });
-        yellowFilter.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                @SuppressLint("ResourceType")
-                String text = yellowFilter.getText().toString();
-                yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
-                roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-                tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+        yellowFilter.setOnClickListener(v -> {
+            @SuppressLint("ResourceType")
+            String text = yellowFilter.getText().toString();
+            yellowFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_700));
+            roseFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            pinkFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            whiteFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+            tulipFilter.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
 
 
-                ArrayList<Flower> searchList = new ArrayList<>();
-                for (Flower dataClass : dataList) {
-                    if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
+            ArrayList<Flower> searchList = new ArrayList<>();
+            for (Flower dataClass : dataList) {
+                if (dataClass.getName().toLowerCase().contains(text.toLowerCase())) {
 
-                        searchList.add(dataClass);
+                    searchList.add(dataClass);
 
-                    }
                 }
-                adapter.searchDataList(searchList);
-               
             }
+            adapter.searchDataList(searchList);
+
         });
 
 
@@ -216,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dataList.clear();

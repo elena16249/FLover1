@@ -27,13 +27,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
-
+import java.util.ArrayList;
 
 
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private EditText  signupName, signupEmail, signupPassword;
+    private EditText signupName, signupEmail, signupPassword;
     private Button signupButton;
     private TextView loginRedirectText;
 
@@ -52,116 +52,94 @@ public class SignUpActivity extends AppCompatActivity {
         loginRedirectText = findViewById(R.id.loginRedirectText);
 
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        signupButton.setOnClickListener(v -> {
 
-                String name = signupName.getText().toString().trim();
-                String email = signupEmail.getText().toString().trim();
-                String password = signupPassword.getText().toString().trim();
+            String name = signupName.getText().toString().trim();
+            String email = signupEmail.getText().toString().trim();
+            String password = signupPassword.getText().toString().trim();
 
 
-                if (name.isEmpty()) {
-                    signupName.setError("Name cannot be empty");
-                }
-                if (email.isEmpty()) {
-                    signupEmail.setError("Email cannot be empty");
-                }
-                if (password.isEmpty()) {
-                    signupPassword.setError("Password cannot be empty");
-                } else {
-                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser firebaseUser = auth.getCurrentUser();
-                                String userId = firebaseUser.getUid();
+            if (name.isEmpty()) {
+                signupName.setError("Name cannot be empty");
+            }
+            if (email.isEmpty()) {
+                signupEmail.setError("Email cannot be empty");
+            }
+            if (password.isEmpty()) {
+                signupPassword.setError("Password cannot be empty");
+            } else {
+                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = auth.getCurrentUser();
+                        String userId = firebaseUser.getUid();
 
-                                // Send email verification
-                                sendVerificationEmail(firebaseUser);
+                        // Send email verification
+                        sendVerificationEmail(firebaseUser);
 
-                                // Create a new User object with the additional fields
-                                User user = new User( name, email, password);
+                        // Create a new User object with the additional fields
+                        User user = new User(name, email,new ArrayList<>());
 
-                                // Add the user to the Realtime Database under the user's UID
-                                FirebaseDatabase.getInstance().getReference("Users").child(userId).setValue(user)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                                                } else {
-                                                    Toast.makeText(SignUpActivity.this, "SignUp Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
-                            } else {
-                                Toast.makeText(SignUpActivity.this, "SignUp Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
+                        // Add the user to the Realtime Database under the user's UID
+                        FirebaseDatabase.getInstance().getReference("Users").child(userId).setValue(user)
+                                .addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "SignUp Failed" + task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "SignUp Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
-        loginRedirectText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-            }
-        });
+        loginRedirectText.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, LoginActivity.class)));
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = auth.getCurrentUser();
 
-                            // Perform additional tasks or navigate to the next screen
-                            // For example, you can add the user to the Realtime Database or display a welcome message
-                            String username = account.getDisplayName();
-                            String email = account.getEmail();
-                            String userId = firebaseUser.getUid();
+                        // Perform additional tasks or navigate to the next screen
+                        // For example, you can add the user to the Realtime Database or display a welcome message
+                        String username = account.getDisplayName();
+                        String email = account.getEmail();
+                        String userId = firebaseUser.getUid();
 
-                            // Create a new User object with the additional fields
-                            User user = new User(username, "", email, "");
+                        // Create a new User object with the additional fields
+                        User user = new User();
 
-                            // Add the user to the Realtime Database under the user's UID
-                            FirebaseDatabase.getInstance().getReference("Users").child(userId).setValue(user)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(SignUpActivity.this, "Google Sign-Up Successful", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                                            } else {
-                                                Toast.makeText(SignUpActivity.this, "Google Sign-Up Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-                        } else {
-                            Toast.makeText(SignUpActivity.this, "Google Sign-In Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                        // Add the user to the Realtime Database under the user's UID
+                        FirebaseDatabase.getInstance().getReference("Users").child(userId).setValue(user)
+                                .addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        Toast.makeText(SignUpActivity.this, "Google Sign-Up Successful", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "Google Sign-Up Failed" + task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Google Sign-In Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
     private void sendVerificationEmail(FirebaseUser user) {
         user.sendEmailVerification()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Verification email sent successfully
-                            Toast.makeText(SignUpActivity.this, "Verification email sent", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Failed to send verification email
-                            Toast.makeText(SignUpActivity.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Verification email sent successfully
+                        Toast.makeText(SignUpActivity.this, "Verification email sent", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Failed to send verification email
+                        Toast.makeText(SignUpActivity.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

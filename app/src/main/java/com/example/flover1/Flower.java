@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Flower implements Parcelable {
+
+    private String flowerId;
     private String name;
     private String description;
     private String image;
@@ -22,12 +24,11 @@ public class Flower implements Parcelable {
     private String step3;
     private String step4;
 
-
     public Flower() {
     }
 
-
     protected Flower(Parcel in) {
+        flowerId = in.readString();
         name = in.readString();
         description = in.readString();
         image = in.readString();
@@ -45,12 +46,14 @@ public class Flower implements Parcelable {
         step4 = in.readString();
     }
 
-    public static final Creator<Flower> CREATOR = new Creator<Flower>() {
+    public static final Parcelable.Creator<Flower> CREATOR = new Parcelable.Creator<Flower>() {
+        @NonNull
         @Override
-        public Flower createFromParcel(Parcel in) {
+        public Flower createFromParcel(@NonNull Parcel in) {
             return new Flower(in);
         }
 
+        @NonNull
         @Override
         public Flower[] newArray(int size) {
             return new Flower[size];
@@ -63,7 +66,8 @@ public class Flower implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(flowerId);
         dest.writeString(name);
         dest.writeString(description);
         dest.writeString(image);
@@ -79,6 +83,10 @@ public class Flower implements Parcelable {
         dest.writeString(step2);
         dest.writeString(step3);
         dest.writeString(step4);
+    }
+
+    public String getFlowerId1() {
+        return flowerId;
     }
 
     public String getName() {
@@ -141,7 +149,8 @@ public class Flower implements Parcelable {
         return step4;
     }
 
-    public Flower(String name, String description, String image, String condition1, String condition2, String condition3, String condition4, String dialog1, String dialog2, String dialog3, String dialog4, String step1, String step2, String step3, String step4) {
+    public Flower(String flowerId, String name, String description, String image, String condition1, String condition2, String condition3, String condition4, String dialog1, String dialog2, String dialog3, String dialog4, String step1, String step2, String step3, String step4) {
+        this.flowerId = flowerId;
         this.name = name;
         this.description = description;
         this.image = image;

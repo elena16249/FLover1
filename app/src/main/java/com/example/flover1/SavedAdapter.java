@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -24,7 +32,8 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
     private Context context;
 
     Intent intent;
-    public SavedAdapter(List<FlowerSaved> dataList) {
+    public SavedAdapter(Context context, List<FlowerSaved> dataList) {
+        this.context = context;
         this.dataList = dataList;
 
     }
@@ -41,18 +50,28 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        FlowerSaved flowerSaved = dataList.get(position);
-        String flowerName = flowerSaved.getSavedFlowername();
-        holder.flowerNameTextView.setText(flowerName);
-        String imageUrl = flowerSaved.getSavedImage();
-        Glide.with(holder.itemView.getContext())
-                .load(imageUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(holder.flowerImage);
+        Glide.with(context).load(dataList.get(position).getImage()).into(holder.flowerImage);
+        holder.flowerNameTextView.setText(dataList.get(position).getName());
 
 
-        holder.deleteButton.setOnClickListener(v -> {
-            ((SavedActivity) v.getContext()).deleteItem(holder.getAdapterPosition());
+        final int clickedPosition = position; // Create a final variable with the position
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickedPosition != RecyclerView.NO_POSITION) {
+                    deleteItemFromDatabase(clickedPosition);
+                }
+            }
+        });
+
+        holder.saveRecCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SavedDetailActivity.class);
+                intent.putExtra("flower", (FlowerSaved) dataList.get(clickedPosition));
+                context.startActivity(intent);
+            }
         });
 
 
@@ -61,6 +80,41 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
         dataList.remove(position);
         notifyItemRemoved(position);
     }
+    private void deleteItemFromDatabase(int position) {
+        FlowerSaved flower = dataList.get(position);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference()
+                .child("Users")
+                .child(currentUserId)
+                .child("favoriteFlowers");
+
+        Query query = currentUserRef.orderByChild("flowerId").equalTo(flower.getFlowerId());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot flowerSnapshot : dataSnapshot.getChildren()) {
+                    flowerSnapshot.getRef().removeValue();
+                    break; // Stop after deleting the first matching item
+                }
+
+                removeItem(position); // Remove the item from the RecyclerView adapter
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle any errors that occur during the database operation
+            }
+        });
+    }
+
+
+
+
+
+
+
     @Override
     public int getItemCount() {
         return dataList.size();
@@ -71,11 +125,13 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
         TextView flowerNameTextView;
         ImageView deleteButton;
         ImageView flowerImage;
+        RelativeLayout saveRecCard;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             flowerNameTextView = itemView.findViewById(R.id.saveFlowerNameTextView);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             flowerImage = itemView.findViewById(R.id.saveImage);
+            saveRecCard = itemView.findViewById(R.id.saveRecCard);
         }
     }
 
