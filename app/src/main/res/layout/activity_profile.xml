@@ -29,7 +29,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
+        android:background="@color/green_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="331dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/green_700"
+        android:src="@drawable/baseline_add_24"
+        android:layout_marginBottom="111dp" />
+
+
+
 </RelativeLayout>

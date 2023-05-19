@@ -64,18 +64,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailTitle" />
 
-                <TextView
-                    android:id="@+id/detailLang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/inter_light"
-                    android:text="access"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detailDesc" />
+
 
                 <ImageView
                     android:id="@+id/favButton1"
@@ -95,7 +84,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detailLang">
+                    app:layout_constraintTop_toBottomOf="@+id/detailDesc">
 
                     <LinearLayout
                         android:id="@+id/step1"
@@ -244,6 +233,7 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/view"
                     android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:layout_marginVertical="330dp"
@@ -268,6 +258,7 @@
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
@@ -346,9 +337,13 @@
                                 android:layout_gravity="center"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/finish_step" />
+
                         </com.google.android.material.card.MaterialCardView>
+
                     </LinearLayout>
                 </HorizontalScrollView>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>

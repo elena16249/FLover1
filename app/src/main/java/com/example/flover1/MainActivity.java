@@ -243,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.searchDataList(searchList);
 
     }
+
 }
 
 

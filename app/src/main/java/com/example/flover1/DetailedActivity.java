@@ -45,7 +45,6 @@ public class DetailedActivity extends AppCompatActivity {
         description = findViewById(R.id.detailDesc);
         flowerImage = findViewById(R.id.detailImage);
         flowerName = findViewById(R.id.detailTitle);
-        accessories = findViewById(R.id.detailLang);
         condition1 = findViewById(R.id.condition1);
         condition2 = findViewById(R.id.condition2);
         condition3 = findViewById(R.id.condition3);
@@ -132,4 +131,6 @@ public class DetailedActivity extends AppCompatActivity {
             });
         }
     }
-}
+
+    }
+
