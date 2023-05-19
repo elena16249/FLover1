@@ -6,28 +6,30 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class FlowerSaved implements Parcelable {
-    private  String flowerId;
-    private  String name;
-    private  String description;
-    private  String image;
-    private  String condition1;
-    private  String condition2;
-    private  String condition3;
-    private  String condition4;
-    private  String dialog1;
-    private  String dialog2;
-    private  String dialog3;
-    private  String dialog4;
-    private  String step1;
-    private  String step2;
-    private  String step3;
+    private String name;
+
+
+    private String flowerId;
+    private String description;
+    private String image;
+    private String condition1;
+    private String condition2;
+    private String condition3;
+    private String condition4;
+    private String dialog1;
+    private String dialog2;
+    private String dialog3;
+    private String dialog4;
+    private String step1;
+    private String step2;
+    private String step3;
     private String step4;
 
-    // Constructors, getters, and setters
 
     public FlowerSaved() {
-        // Default constructor required for Firebase deserialization
     }
+
+
     protected FlowerSaved(Parcel in) {
         flowerId = in.readString();
         name = in.readString();
@@ -47,17 +49,15 @@ public class FlowerSaved implements Parcelable {
         step4 = in.readString();
     }
 
-    // Parcelable implementation
-
-    public static final Creator<FlowerSaved> CREATOR = new Creator<FlowerSaved>() {
+    public static final Creator<Flower> CREATOR = new Creator<Flower>() {
         @Override
-        public FlowerSaved createFromParcel(Parcel in) {
-            return new FlowerSaved(in);
+        public Flower createFromParcel(Parcel in) {
+            return new Flower(in);
         }
 
         @Override
-        public FlowerSaved[] newArray(int size) {
-            return new FlowerSaved[size];
+        public Flower[] newArray(int size) {
+            return new Flower[size];
         }
     };
 
@@ -67,8 +67,7 @@ public class FlowerSaved implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(flowerId);
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(description);
         dest.writeString(image);
@@ -86,16 +85,19 @@ public class FlowerSaved implements Parcelable {
         dest.writeString(step4);
     }
 
-    public String getFlowerId() {
-        return flowerId;
-    }
-
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
+    }
+    public String getFlowerId() {
+        return flowerId;
+    }
+
+    public void setFlowerId(String flowerId) {
+        this.flowerId = flowerId;
     }
 
     public String getImage() {
@@ -149,4 +151,25 @@ public class FlowerSaved implements Parcelable {
     public String getStep4() {
         return step4;
     }
+
+    public FlowerSaved(String name, String description, String image, String condition1, String condition2, String condition3, String condition4, String dialog1, String dialog2, String dialog3, String dialog4, String step1, String step2, String step3, String step4) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.condition1 = condition1;
+        this.condition2 = condition2;
+        this.condition3 = condition3;
+        this.condition4 = condition4;
+        this.dialog1 = dialog1;
+        this.dialog2 = dialog2;
+        this.dialog3 = dialog3;
+        this.dialog4 = dialog4;
+        this.step1 = step1;
+        this.step2 = step2;
+        this.step3 = step3;
+        this.step4 = step4;
+
+    }
+
+
 }

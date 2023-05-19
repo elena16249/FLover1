@@ -25,8 +25,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -243,10 +246,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.searchDataList(searchList);
 
     }
-    @Override
-    public void onBackPressed() {
-        //ignored
-    }
+
+
 }
 
 

@@ -181,8 +181,4 @@ public class AlarmActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-    @Override
-    public void onBackPressed() {
-        //ignored
-    }
 }

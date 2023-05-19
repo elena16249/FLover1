@@ -65,11 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-    }
-    @Override
-    public void onBackPressed() {
-        //ignored
     }
     }
 

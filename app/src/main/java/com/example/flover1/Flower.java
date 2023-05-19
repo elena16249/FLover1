@@ -117,14 +117,6 @@ public class Flower implements Parcelable {
         return condition4;
     }
 
-    public String getFlowerId() {
-        return flowerId;
-    }
-
-    public void setFlowerId(String flowerId) {
-        this.flowerId = flowerId;
-    }
-
     public String getDialog1() {
         return dialog1;
     }
@@ -175,4 +167,5 @@ public class Flower implements Parcelable {
         this.step3 = step3;
         this.step4 = step4;
     }
+
 }
