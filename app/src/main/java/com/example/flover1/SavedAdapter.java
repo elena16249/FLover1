@@ -51,8 +51,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(dataList.get(position).getImage()).into(holder.flowerImage);
-        holder.flowerNameTextView.setText(dataList.get(position).getName());
-
+        holder.flowerNameTextView.setText(dataList.get(position).getName()); // Set the title or flower name
 
         final int clickedPosition = position; // Create a final variable with the position
 
@@ -64,17 +63,15 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
                 }
             }
         });
-
         holder.saveRecCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SavedDetailActivity.class);
-                intent.putExtra("flower", (FlowerSaved) dataList.get(clickedPosition));
+                FlowerSaved selectedFlower = dataList.get(clickedPosition); // Use FlowerSaved object
+                intent.putExtra("flowerSaved", selectedFlower);
                 context.startActivity(intent);
             }
         });
-
-
     }
     private void removeItem(int position) {
         dataList.remove(position);
@@ -133,6 +130,8 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
             flowerImage = itemView.findViewById(R.id.saveImage);
             saveRecCard = itemView.findViewById(R.id.saveRecCard);
         }
+
     }
+
 
 }
