@@ -2,12 +2,9 @@ package com.example.flover1;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,8 +47,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(dataList.get(position).getImage()).into(holder.flowerImage);
-        holder.flowerNameTextView.setText(dataList.get(position).getName());
-
+        holder.flowerNameTextView.setText(dataList.get(position).getName()); // Set the title or flower name
 
         final int clickedPosition = position; // Create a final variable with the position
 
@@ -64,17 +59,15 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
                 }
             }
         });
-
         holder.saveRecCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SavedDetailActivity.class);
-                intent.putExtra("flower", (FlowerSaved) dataList.get(clickedPosition));
+                FlowerSaved selectedFlower = dataList.get(clickedPosition); // Use FlowerSaved object
+                intent.putExtra("flowerSaved", selectedFlower);
                 context.startActivity(intent);
             }
         });
-
-
     }
     private void removeItem(int position) {
         dataList.remove(position);
@@ -133,6 +126,8 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
             flowerImage = itemView.findViewById(R.id.saveImage);
             saveRecCard = itemView.findViewById(R.id.saveRecCard);
         }
+
     }
+
 
 }
