@@ -1,7 +1,7 @@
 package com.example.flover1;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,44 +22,60 @@ public class Onboarding extends AppCompatActivity {
     private OnboardingAdapter onboardingAdapter;
     private LinearLayout layoutOnboardingIndicators;
     private MaterialButton buttonOnboardingAction;
+    private SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.onboarding);
 
-        layoutOnboardingIndicators = findViewById(R.id.layoutOnboardingIndicators);
-        buttonOnboardingAction = findViewById(R.id.buttonOnboardingAction);
-        setupOnboardingItems();
+        // Check if onboarding is completed
+        sharedPreferences = getSharedPreferences("onboarding", MODE_PRIVATE);
+        boolean isOnboardingCompleted = sharedPreferences.getBoolean("is_completed", false);
 
-        ViewPager2 onboardingViewPager = findViewById(R.id.onboardingViewPager);
-        onboardingViewPager.setAdapter(onboardingAdapter);
+        if (isOnboardingCompleted) {
+            // Onboarding completed, go to the main activity
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        } else {
+            // Onboarding not completed, show onboarding screens
+            setContentView(R.layout.onboarding);
 
-        setupOnboardingIndicators();
-        setCurrentOnboardingIndicator(0);
+            layoutOnboardingIndicators = findViewById(R.id.layoutOnboardingIndicators);
+            buttonOnboardingAction = findViewById(R.id.buttonOnboardingAction);
+            setupOnboardingItems();
 
-        onboardingViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                setCurrentOnboardingIndicator(position);
-            }
-        });
-        buttonOnboardingAction.setOnClickListener(new View.OnClickListener() {
+            ViewPager2 onboardingViewPager = findViewById(R.id.onboardingViewPager);
+            onboardingViewPager.setAdapter(onboardingAdapter);
 
-            @Override
-            public void onClick(View v) {
-                if (onboardingViewPager.getCurrentItem() + 1 < onboardingAdapter.getItemCount()) {
-                    onboardingViewPager.setCurrentItem(onboardingViewPager.getCurrentItem() + 1);
-                } else {
-                    startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
-                    finish();
+            setupOnboardingIndicators();
+            setCurrentOnboardingIndicator(0);
+
+            onboardingViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    setCurrentOnboardingIndicator(position);
                 }
-            }
-        });
-    }
+            });
+            buttonOnboardingAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onboardingViewPager.getCurrentItem() + 1 < onboardingAdapter.getItemCount()) {
+                        onboardingViewPager.setCurrentItem(onboardingViewPager.getCurrentItem() + 1);
+                    } else {
+                        // Mark onboarding as completed
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("is_completed", true);
+                        editor.apply();
 
+                        startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+                        finish();
+                    }
+                }
+            });
+        }
+    }
 
     private void setupOnboardingItems() {
         List<OnboardingItem> onboardingItems = new ArrayList<>();
@@ -69,14 +85,13 @@ public class Onboarding extends AppCompatActivity {
         welcome1.setDescription("Life is short, buy plants");
         welcome1.setImage(R.drawable.background1);
 
-
         OnboardingItem welcome2 = new OnboardingItem();
         welcome2.setTitle("Take care of your FLovers with us...!");
-        welcome2.setDescription("We'll help you not to forget about caring of flowers");
+        welcome2.setDescription("We'll help you not to forget about caring for flowers");
         welcome2.setImage(R.drawable.background2);
 
         OnboardingItem welcome3 = new OnboardingItem();
-        welcome3.setTitle("Nourish the flower by water...");
+        welcome3.setTitle("Nourish the flower with water...");
         welcome3.setImage(R.drawable.background3);
 
         onboardingItems.add(welcome1);
@@ -84,7 +99,6 @@ public class Onboarding extends AppCompatActivity {
         onboardingItems.add(welcome3);
 
         onboardingAdapter = new OnboardingAdapter(onboardingItems);
-
     }
 
     private void setupOnboardingIndicators() {
@@ -100,7 +114,6 @@ public class Onboarding extends AppCompatActivity {
             ));
             indicators[i].setLayoutParams(layoutParams);
             layoutOnboardingIndicators.addView(indicators[i]);
-
         }
     }
 
@@ -117,14 +130,11 @@ public class Onboarding extends AppCompatActivity {
                         ContextCompat.getDrawable(getApplicationContext(), R.drawable.onboarding_indicator_inactive)
                 );
             }
-
         }
         if (index == onboardingAdapter.getItemCount() - 1) {
             buttonOnboardingAction.setText("START");
         } else {
             buttonOnboardingAction.setText("NEXT");
         }
-
     }
-
 }

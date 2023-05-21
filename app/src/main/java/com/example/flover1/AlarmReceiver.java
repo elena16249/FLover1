@@ -17,9 +17,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"foxandroid")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Foxandroid Alarm Manager")
-                .setContentText("Subscribe for android related content")
+                .setSmallIcon(R.drawable.icon2)
+                .setContentTitle("It's time to water")
+                .setContentText("Don't forget to water your flower")
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
