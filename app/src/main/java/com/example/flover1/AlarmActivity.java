@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,7 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AlarmActivity extends AppCompatActivity {
 
@@ -41,6 +45,8 @@ public class AlarmActivity extends AppCompatActivity {
     private EditText alarmName;
     private boolean isAlarmAlreadyExists;
 
+    private ArrayList<Button> dayButtons;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +57,20 @@ public class AlarmActivity extends AppCompatActivity {
         Button selectTimeBtn = findViewById(R.id.selectTimeBtn);
         Button setAlarmBtn = findViewById(R.id.setAlarmBtn);
         Button cancelAlarmBtn = findViewById(R.id.cancelAlarmBtn);
-        Button selectIntervalBtn = findViewById(R.id.selectIntervalBtn);
+
+
+        alarmName = findViewById(R.id.alarmName);
+
+        // Initialize day buttons list
+        dayButtons = new ArrayList<>();
+        dayButtons.add(findViewById(R.id.sundayButton));
+        dayButtons.add(findViewById(R.id.mondayButton));
+        dayButtons.add(findViewById(R.id.tuesdayButton));
+        dayButtons.add(findViewById(R.id.wednesdayButton));
+        dayButtons.add(findViewById(R.id.thursdayButton));
+        dayButtons.add(findViewById(R.id.fridayButton));
+        dayButtons.add(findViewById(R.id.saturdayButton));
+
 
         alarmName = findViewById(R.id.alarmName);
 
@@ -70,7 +89,46 @@ public class AlarmActivity extends AppCompatActivity {
 
         cancelAlarmBtn.setOnClickListener(v -> cancelAlarm());
 
-        selectIntervalBtn.setOnClickListener(v -> showIntervalPicker());
+//        selectIntervalBtn.setOnClickListener(v -> showIntervalPicker());
+    }
+    public void onClickSunday(View view) {
+        Button button = (Button) view;
+        button.setSelected(!button.isSelected());
+    }
+
+    public void onClickMonday(View view) {
+        Button button = (Button) view;
+        button.setSelected(!button.isSelected());
+    }
+
+    public void onClickTuesday(View view) {
+        Button button = (Button) view;
+        button.setSelected(!button.isSelected());
+    }
+
+    public void onClickWednesday(View view) {
+        Button button = (Button) view;
+        button.setSelected(!button.isSelected());
+    }
+
+    public void onClickThursday(View view) {
+        Button button = (Button) view;
+        button.setSelected(!button.isSelected());
+    }
+
+    public void onClickFriday(View view) {
+        Button button = (Button) view;
+        button.setSelected(!button.isSelected());
+    }
+
+    public void onClickSaturday(View view) {
+        Button button = (Button) view;
+        button.setSelected(!button.isSelected());
+    }
+
+    private boolean isButtonSelected(int buttonId) {
+        Button button = findViewById(buttonId);
+        return button.isSelected();
     }
 
     private void cancelAlarm() {
@@ -98,10 +156,6 @@ public class AlarmActivity extends AppCompatActivity {
             if (isAlarmAlreadyExists) {
                 Toast.makeText(this, "Alarm with the same name already exists", Toast.LENGTH_SHORT).show();
             } else {
-                long intervalMillis = notificationInterval * AlarmManager.INTERVAL_DAY;
-
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                        intervalMillis, pendingIntent);
 
                 Toast.makeText(this, "Alarm set Successfully", Toast.LENGTH_SHORT).show();
 
@@ -110,13 +164,89 @@ public class AlarmActivity extends AppCompatActivity {
                         .child("Users").child(currentUserId).child("notifications");
                 String notificationItemId = databaseReference.push().getKey();
 
-                NotificationItem notificationItem = new NotificationItem(notificationItemId, name, getTimeString(), Integer.toString(notificationInterval) ,  true);
+                // Retrieve the selected days from buttons
+                boolean isSundaySelected = isButtonSelected(R.id.sundayButton);
+                boolean isMondaySelected = isButtonSelected(R.id.mondayButton);
+                boolean isTuesdaySelected = isButtonSelected(R.id.tuesdayButton);
+                boolean isWednesdaySelected = isButtonSelected(R.id.wednesdayButton);
+                boolean isThursdaySelected = isButtonSelected(R.id.thursdayButton);
+                boolean isFridaySelected = isButtonSelected(R.id.fridayButton);
+                boolean isSaturdaySelected = isButtonSelected(R.id.saturdayButton);
+
+                // Create a map to store the selected days
+                ArrayList<Day> selectedDaysMap = new ArrayList<>();
+                selectedDaysMap.add(new Day("Sunday", isSundaySelected));
+                selectedDaysMap.add(new Day("Monday", isMondaySelected));
+                selectedDaysMap.add(new Day("Tuesday", isTuesdaySelected));
+                selectedDaysMap.add(new Day("Wednesday", isWednesdaySelected));
+                selectedDaysMap.add(new Day("Thursday", isThursdaySelected));
+                selectedDaysMap.add(new Day("Friday", isFridaySelected));
+                selectedDaysMap.add(new Day("Saturday", isSaturdaySelected));
+
+                // Iterate over the selected days and set an alarm for each selected day
+                for (Day day : selectedDaysMap) {
+                    if (day.isOn()) {
+                        // Calculate the time for the alarm based on the selected day
+                        Calendar alarmTime = calculateAlarmTime(day.getName());
+
+                        // Set the repeating alarm for the selected day
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(),
+                                AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+                    }
+                }
+
+                // Create a notification item with the selected days
+                NotificationItem notificationItem = new NotificationItem(notificationItemId, name, getTimeString(),
+                        Integer.toString(notificationInterval), true, selectedDaysMap);
+
                 databaseReference.child(notificationItemId).setValue(notificationItem);
 
                 startActivity(new Intent(this, ProfileActivity.class));
             }
         });
     }
+
+    private Calendar calculateAlarmTime(String dayOfWeek) {
+        Calendar alarmTime = Calendar.getInstance();
+        alarmTime.set(Calendar.HOUR_OF_DAY, picker.getHour());
+        alarmTime.set(Calendar.MINUTE, picker.getMinute());
+        alarmTime.set(Calendar.SECOND, 0);
+        alarmTime.set(Calendar.MILLISECOND, 0);
+
+        // Find the next occurrence of the selected day of the week
+        while (alarmTime.get(Calendar.DAY_OF_WEEK) != getDayOfWeekValue(dayOfWeek)) {
+            alarmTime.add(Calendar.DAY_OF_WEEK, 1);
+        }
+
+        return alarmTime;
+    }
+
+    private int getDayOfWeekValue(String dayOfWeek) {
+        switch (dayOfWeek) {
+            case "Sunday":
+                return Calendar.SUNDAY;
+            case "Monday":
+                return Calendar.MONDAY;
+            case "Tuesday":
+                return Calendar.TUESDAY;
+            case "Wednesday":
+                return Calendar.WEDNESDAY;
+            case "Thursday":
+                return Calendar.THURSDAY;
+            case "Friday":
+                return Calendar.FRIDAY;
+            case "Saturday":
+                return Calendar.SATURDAY;
+            default:
+                return -1; // Invalid value
+        }
+    }
+
+    private boolean isSelected(int buttonId) {
+        Button button = findViewById(buttonId);
+        return button.isSelected();
+    }
+
 
     private void checkIfAlarmExists(String name, OnAlarmExistenceCheckedListener listener) {
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -197,8 +327,8 @@ public class AlarmActivity extends AppCompatActivity {
                     break;
             }
 
-            TextView selectedIntervalTextView = findViewById(R.id.selectInterval);
-            selectedIntervalTextView.setText(items[which]);
+//            TextView selectedIntervalTextView = findViewById(R.id.selectInterval);
+//            selectedIntervalTextView.setText(items[which]);
 
             dialog.dismiss();
         });
@@ -208,16 +338,16 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "foxandroidReminderChannel";
-            String description = "Channel For Alarm Manager";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("foxandroid", name, importance);
-            channel.setDescription(description);
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        CharSequence name = "foxandroidReminderChannel";
+        String description = "Channel For Alarm Manager";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel channel = new NotificationChannel("foxandroid", name, importance);
+        channel.setDescription(description);
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+
     }
 
     @Override

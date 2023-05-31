@@ -60,42 +60,11 @@ public class DetailedActivity extends AppCompatActivity {
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 String currentUserId = firebaseAuth.getCurrentUser().getUid();
                 currentUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-                favButton1 = findViewById(R.id.favButton1);
-
-                queryCurrentUserRef();
-
-                favButton1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
 
-                        Query query = currentUserRef.child("favoriteFlowers").orderByChild("flowerId").equalTo(flower.getFlowerId1());
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    // The flower is already a favorite, remove it from the favoriteFlowers node
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        snapshot.getRef().removeValue();
-                                    }
-                                    isFavorite = false;
-                                    favButton1.setImageResource(R.drawable.baseline_favorite_border_24);
-                                } else {
-                                    // The flower is not a favorite, add it to the favoriteFlowers node
-                                    currentUserRef.child("favoriteFlowers").push().setValue(flower);
-                                    isFavorite = true;
-                                    favButton1.setImageResource(R.drawable.baseline_favorite1_24);
-                                }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                // Handle the error
-                            }
-                        });
 
-                    }
-                });
+
 
             }
         }
@@ -154,29 +123,5 @@ public class DetailedActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-    private void queryCurrentUserRef() {
-        if (flower != null) {
-            Query query = currentUserRef.child("favoriteFlowers").orderByChild("flowerId").equalTo(flower.getFlowerId1());
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    isFavorite = dataSnapshot.exists();
-                    if (isFavorite) {
-                        favButton1.setImageResource(R.drawable.baseline_favorite1_24);
-                    } else {
-                        favButton1.setImageResource(R.drawable.baseline_favorite_border_24);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Handle the error
-                }
-            });
-        }
-    }
 
 }

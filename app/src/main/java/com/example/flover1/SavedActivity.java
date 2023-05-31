@@ -1,11 +1,13 @@
 package com.example.flover1;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +55,11 @@ public class SavedActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("favoriteFlowers");
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_saved);
+        // Получение ColorStateList с использованием ContextCompat
+        ColorStateList iconColorStateList = ContextCompat.getColorStateList(this, R.drawable.icon_selector);
+
+// Установка ColorStateList для значков
+        bottomNavigationView.setItemIconTintList(iconColorStateList);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -66,6 +73,11 @@ public class SavedActivity extends AppCompatActivity {
                     return true;
                 case R.id.bottom_profile:
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    finish();
+                    return true;
+                case R.id.bottom_calendar:
+                    startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                     return true;

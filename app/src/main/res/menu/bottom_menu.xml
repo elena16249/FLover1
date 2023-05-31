@@ -12,4 +12,8 @@
         android:id="@+id/bottom_profile"
         android:icon="@drawable/baseline_notifications_24"
         android:title="Profile" />
+    <item
+        android:id="@+id/bottom_calendar"
+        android:icon="@drawable/baseline_calendar_today_24"
+        android:title="Calendar" />
 </menu>

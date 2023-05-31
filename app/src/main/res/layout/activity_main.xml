@@ -119,7 +119,7 @@
         android:background="@drawable/bottom_background"
         android:elevation="2dp"
         app:itemIconSize="30dp"
-        app:itemIconTint="@color/white"
+        app:itemIconTint="@color/green_700"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_menu" />

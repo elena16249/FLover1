@@ -13,6 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -54,26 +55,41 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         // Set the checked state of the switch
         holder.setSwitchState(notificationItem.isAlarmOn());
 
+
         holder.deleteButton.setOnClickListener(v -> {
-            // Remove the item from the list
-            NotificationItem itemToRemove = notificationItems.get(position);
-            notificationItems.remove(position);
-            notifyDataSetChanged();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Удаление напоминания");
+            builder.setMessage("Вы уверены, что хотите удалить это напоминание?");
 
-            // Perform any action when the delete button is clicked
+            builder.setPositiveButton("Да", (dialog, which) -> {
+                // Пользователь подтвердил удаление - выполните необходимые действия
 
-            // Cancel the alarm associated with the item
-            cancelAlarm(itemToRemove);
+                // Удалите элемент из списка
+                NotificationItem itemToRemove = notificationItems.get(position);
+                notificationItems.remove(position);
+                notifyDataSetChanged();
 
-            // Remove the item from the database
-            databaseReference.child(itemToRemove.getId()).removeValue()
-                    .addOnSuccessListener(aVoid -> {
-                        // Item removed successfully from the database
-                    })
-                    .addOnFailureListener(e -> {
-                        // An error occurred while removing the item from the database
-                    });
+                // Отмените связанное с элементом напоминание
+                cancelAlarm(itemToRemove);
+
+                // Удалите элемент из базы данных
+                databaseReference.child(itemToRemove.getId()).removeValue()
+                        .addOnSuccessListener(aVoid -> {
+                            // Элемент успешно удален из базы данных
+                        })
+                        .addOnFailureListener(e -> {
+                            // Произошла ошибка при удалении элемента из базы данных
+                        });
+            });
+
+            builder.setNegativeButton("Нет", (dialog, which) -> {
+                // Пользователь отменил удаление - ничего не делать
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
+
 
         // Handle the Switch state change
         holder.alarmSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {

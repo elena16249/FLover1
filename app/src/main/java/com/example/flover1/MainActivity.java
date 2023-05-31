@@ -2,6 +2,7 @@ package com.example.flover1;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -173,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+        // Получение ColorStateList с использованием ContextCompat
+        ColorStateList iconColorStateList = ContextCompat.getColorStateList(this, R.drawable.icon_selector);
+
+// Установка ColorStateList для значков
+        bottomNavigationView.setItemIconTintList(iconColorStateList);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -188,6 +194,12 @@ public class MainActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                     return true;
+                case R.id.bottom_calendar:
+                    startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    finish();
+                    return true;
+
             }
             return false;
         });

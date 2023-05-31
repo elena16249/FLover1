@@ -2,12 +2,14 @@ package com.example.flover1;
 
 import android.app.AlarmManager;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,6 +83,14 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+
+// Получение ColorStateList с использованием ContextCompat
+        ColorStateList iconColorStateList = ContextCompat.getColorStateList(this, R.drawable.icon_selector);
+
+// Установка ColorStateList для значков
+        bottomNavigationView.setItemIconTintList(iconColorStateList);
+
         bottomNavigationView.setSelectedItemId(R.id.bottom_profile);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -95,6 +105,11 @@ public class ProfileActivity extends AppCompatActivity {
                     finish();
                     return true;
                 case R.id.bottom_profile:
+                    return true;
+                case R.id.bottom_calendar:
+                    startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    finish();
                     return true;
             }
             return false;

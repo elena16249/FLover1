@@ -18,6 +18,12 @@
     <color name="viewpage1">#FAFFF1</color>
     <color name="grey">#d2d2d2</color>
     <color name="light_gray">#737373</color>
+    <color name="pressed_color">#808080</color> <!-- Цвет фона кнопки при нажатии (например, серый) -->
+    <color name="default_color">#FFFFFF</color> <!-- Цвет фона кнопки по умолчанию (например, белый) -->
+
+
+    <color name="gray">#888</color>
+    <color name="blue">#0000FF</color>
 
 
 </resources>

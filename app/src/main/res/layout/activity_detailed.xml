@@ -66,16 +66,6 @@
 
 
 
-                <ImageView
-                    android:id="@+id/favButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginEnd="45dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/baseline_favorite_border_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"

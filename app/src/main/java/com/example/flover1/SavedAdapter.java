@@ -1,6 +1,8 @@
 package com.example.flover1;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -45,7 +48,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
 
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(dataList.get(position).getImage()).into(holder.flowerImage);
         holder.flowerNameTextView.setText(dataList.get(position).getName()); // Set the title or flower name
 
@@ -54,21 +57,33 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (clickedPosition != RecyclerView.NO_POSITION) {
-                    deleteItemFromDatabase(clickedPosition);
-                }
-            }
-        });
-        holder.saveRecCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, SavedDetailActivity.class);
-                FlowerSaved selectedFlower = dataList.get(clickedPosition); // Use FlowerSaved object
-                intent.putExtra("flowerSaved", selectedFlower);
-                context.startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Удаление цветка");
+                builder.setMessage("Вы уверены, что хотите удалить этот цветок?");
+                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Удаление цветка
+                        removeFlower(position);
+                    }
+                });
+                builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Отмена удаления
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
     }
+    private void removeFlower(int position) {
+        dataList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, dataList.size());
+    }
+
     private void removeItem(int position) {
         dataList.remove(position);
         notifyItemRemoved(position);

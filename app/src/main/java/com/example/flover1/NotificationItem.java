@@ -3,23 +3,28 @@ package com.example.flover1;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class NotificationItem implements Parcelable {
     private String id;
     private String name;
     private String time;
     private String interval;
     private boolean isAlarmOn;
+    private ArrayList selectedDays;
 
     public NotificationItem() {
         // Required for Firebase deserialization
     }
 
-    public NotificationItem(String id, String name, String time, String interval, boolean isAlarmOn) {
+    public NotificationItem(String id, String name, String time, String interval, boolean isAlarmOn,
+                            ArrayList<Day> selectedDays) {
         this.id = id;
         this.name = name;
         this.time = time;
         this.interval = interval;
         this.isAlarmOn = isAlarmOn;
+        this.selectedDays = selectedDays;
     }
 
     protected NotificationItem(Parcel in) {
@@ -28,6 +33,7 @@ public class NotificationItem implements Parcelable {
         time = in.readString();
         interval = in.readString();
         isAlarmOn = in.readByte() != 0;
+        selectedDays = in.readArrayList(getClass().getClassLoader());
     }
 
     public static final Creator<NotificationItem> CREATOR = new Creator<NotificationItem>() {
@@ -54,6 +60,7 @@ public class NotificationItem implements Parcelable {
         dest.writeString(time);
         dest.writeString(interval);
         dest.writeByte((byte) (isAlarmOn ? 1 : 0));
+        dest.writeList(selectedDays);
     }
 
     public String getId() {
@@ -76,6 +83,10 @@ public class NotificationItem implements Parcelable {
         return isAlarmOn;
     }
 
+    public ArrayList<Day> getSelectedDays() {
+        return selectedDays;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -94,5 +105,9 @@ public class NotificationItem implements Parcelable {
 
     public void setAlarmOn(boolean alarmOn) {
         isAlarmOn = alarmOn;
+    }
+
+    public void setSelectedDays(ArrayList<Day> selectedDays) {
+        this.selectedDays = selectedDays;
     }
 }
