@@ -58,8 +58,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         holder.deleteButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Удаление напоминания");
-            builder.setMessage("Вы уверены, что хотите удалить это напоминание?");
+            builder.setTitle("Delete reminder");
+            builder.setMessage("You are sure that you want to delete this reminder?");
 
             builder.setPositiveButton("Да", (dialog, which) -> {
                 // Пользователь подтвердил удаление - выполните необходимые действия
