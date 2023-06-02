@@ -14,7 +14,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/noteFlower"
@@ -25,9 +26,19 @@
             android:layout_marginTop="25dp"
             android:text="Name"
             android:textColor="@color/green_700"
-
-
             android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/notification_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/noteFlower"
+            android:layout_below="@id/noteFlower"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textColor="@color/green_700"
+            android:text="Selected days: "
+            />
 
         <TextView
             android:id="@+id/timeTextView"

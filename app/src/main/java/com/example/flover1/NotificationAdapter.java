@@ -49,6 +49,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Bind the data to the ViewHolder
         NotificationItem notificationItem = notificationItems.get(position);
+        String tempDays = "Selected days: ";
+        for (int i = 0; i < notificationItem.getSelectedDays().size(); i++) {
+            if (notificationItem.getSelectedDays().get(i).isOn()) {
+                tempDays = tempDays+notificationItem.getSelectedDays().get(i).getName().substring(0, 3).toUpperCase()+ ", ";
+            }
+        }
+
+        if (tempDays.charAt(tempDays.length()-2)==','){
+            tempDays= tempDays.substring(0,tempDays.length()-2);
+        }
+
+        holder.notificationDays.setText(tempDays);
+
         holder.notificationName.setText(notificationItem.getName());
         holder.notificationTime.setText(notificationItem.getTime());
 
@@ -61,7 +74,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             builder.setTitle("Delete reminder");
             builder.setMessage("You are sure that you want to delete this reminder?");
 
-            builder.setPositiveButton("Да", (dialog, which) -> {
+            builder.setPositiveButton("Yes", (dialog, which) -> {
                 // Пользователь подтвердил удаление - выполните необходимые действия
 
                 // Удалите элемент из списка
@@ -82,7 +95,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         });
             });
 
-            builder.setNegativeButton("Нет", (dialog, which) -> {
+            builder.setNegativeButton("No", (dialog, which) -> {
                 // Пользователь отменил удаление - ничего не делать
             });
 
@@ -117,6 +130,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView notificationName;
         TextView notificationTime;
+        TextView notificationDays;
         ImageButton deleteButton;
         Switch alarmSwitch;
 
@@ -124,6 +138,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             super(itemView);
             notificationName = itemView.findViewById(R.id.noteFlower);
             notificationTime = itemView.findViewById(R.id.timeTextView);
+            notificationDays = itemView.findViewById(R.id.notification_days);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             alarmSwitch = itemView.findViewById(R.id.alarmSwitch);
         }
@@ -156,7 +171,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         // Cancel the alarm using the PendingIntent
         alarmManager.cancel(pendingIntent);
     }
-
 
 
     private void updateAlarmState(NotificationItem item, boolean isChecked) {

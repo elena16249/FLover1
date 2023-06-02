@@ -60,14 +60,14 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Flower removal");
                 builder.setMessage("Are you sure you want to delete this flower?");
-                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Удаление цветка
                         removeFlower(position);
                     }
                 });
-                builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Отмена удаления
