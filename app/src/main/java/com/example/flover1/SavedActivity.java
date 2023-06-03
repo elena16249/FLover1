@@ -1,5 +1,6 @@
 package com.example.flover1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +27,8 @@ import java.util.List;
 public class SavedActivity extends AppCompatActivity {
 
 
+    SearchView searchView;
+
     RecyclerView recyclerView;
     List<FlowerSaved> dataList;
     ValueEventListener eventListener;
@@ -33,12 +37,16 @@ public class SavedActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
 
         recyclerView = findViewById(R.id.savedRecyclerView);
+
+        searchView = findViewById(R.id.search2);
+        searchView.clearFocus();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(SavedActivity.this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -114,6 +122,31 @@ public class SavedActivity extends AppCompatActivity {
                 // Handle any errors that occur during the database operation
             }
         });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchList(newText);
+                return true;
+            }
+        });
+
+    }
+    public void searchList(String text) {
+        ArrayList<FlowerSaved> searchList = new ArrayList<>();
+        for (FlowerSaved flower : dataList) {
+            if (flower.getName().toLowerCase().contains(text.toLowerCase())) {
+                searchList.add(flower);
+            }
+        }
+        adapter.searchDataList(searchList);
+
     }
 
     @Override

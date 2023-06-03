@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder> {
@@ -82,6 +83,10 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
         dataList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, dataList.size());
+    }
+    public void searchDataList(ArrayList<FlowerSaved> searchList) {
+        dataList = searchList;
+        notifyDataSetChanged();
     }
 
     private void removeItem(int position) {
