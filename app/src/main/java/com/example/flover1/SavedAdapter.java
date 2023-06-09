@@ -32,6 +32,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
     private Context context;
 
     Intent intent;
+
     public SavedAdapter(Context context, List<FlowerSaved> dataList) {
         this.context = context;
         this.dataList = dataList;
@@ -47,13 +48,20 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(dataList.get(position).getImage()).into(holder.flowerImage);
         holder.flowerNameTextView.setText(dataList.get(position).getName()); // Set the title or flower name
 
         final int clickedPosition = position; // Create a final variable with the position
+        holder.saveRecCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SavedDetailActivity.class);
+                intent.putExtra("flowerSaved", dataList.get(position));
+                context.startActivity(intent);
+            }
+        });
 
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +87,13 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
             }
         });
     }
+
     private void removeFlower(int position) {
         dataList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, dataList.size());
     }
+
     public void searchDataList(ArrayList<FlowerSaved> searchList) {
         dataList = searchList;
         notifyDataSetChanged();
@@ -93,6 +103,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
         dataList.remove(position);
         notifyItemRemoved(position);
     }
+
     private void deleteItemFromDatabase(int position) {
         FlowerSaved flower = dataList.get(position);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -123,11 +134,6 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
     }
 
 
-
-
-
-
-
     @Override
     public int getItemCount() {
         return dataList.size();
@@ -139,6 +145,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder
         ImageView deleteButton;
         ImageView flowerImage;
         RelativeLayout saveRecCard;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             flowerNameTextView = itemView.findViewById(R.id.saveFlowerNameTextView);

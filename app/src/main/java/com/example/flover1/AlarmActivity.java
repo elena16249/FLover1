@@ -93,37 +93,78 @@ public class AlarmActivity extends AppCompatActivity {
     }
     public void onClickSunday(View view) {
         Button button = (Button) view;
-        button.setSelected(!button.isSelected());
+        if (!button.isSelected()) {
+            button.setSelected(true);
+            button.setBackgroundResource(R.drawable.rounded_button2);
+        } else {
+            button.setSelected(false);
+            button.setBackgroundResource(R.drawable.rounded_button1);
+        }
     }
-
     public void onClickMonday(View view) {
         Button button = (Button) view;
-        button.setSelected(!button.isSelected());
+        if (!button.isSelected()) {
+            button.setSelected(true);
+            button.setBackgroundResource(R.drawable.rounded_button2);
+        } else {
+            button.setSelected(false);
+            button.setBackgroundResource(R.drawable.rounded_button1);
+        }
     }
 
     public void onClickTuesday(View view) {
         Button button = (Button) view;
-        button.setSelected(!button.isSelected());
+        if (!button.isSelected()) {
+            button.setSelected(true);
+            button.setBackgroundResource(R.drawable.rounded_button2);
+        } else {
+            button.setSelected(false);
+            button.setBackgroundResource(R.drawable.rounded_button1);
+        }
     }
 
     public void onClickWednesday(View view) {
         Button button = (Button) view;
-        button.setSelected(!button.isSelected());
+        if (!button.isSelected()) {
+            button.setSelected(true);
+            button.setBackgroundResource(R.drawable.rounded_button2);
+        } else {
+            button.setSelected(false);
+            button.setBackgroundResource(R.drawable.rounded_button1);
+        }
     }
 
     public void onClickThursday(View view) {
         Button button = (Button) view;
-        button.setSelected(!button.isSelected());
+        if (!button.isSelected()) {
+            button.setSelected(true);
+            button.setBackgroundResource(R.drawable.rounded_button2);
+        } else {
+            button.setSelected(false);
+            button.setBackgroundResource(R.drawable.rounded_button1);
+        }
     }
 
     public void onClickFriday(View view) {
         Button button = (Button) view;
-        button.setSelected(!button.isSelected());
+        if (!button.isSelected()) {
+            button.setSelected(true);
+            button.setBackgroundResource(R.drawable.rounded_button2);
+        } else {
+            button.setSelected(false);
+            button.setBackgroundResource(R.drawable.rounded_button1);
+        }
     }
 
     public void onClickSaturday(View view) {
         Button button = (Button) view;
-        button.setSelected(!button.isSelected());
+        if (!button.isSelected()) {
+            button.setSelected(true);
+            button.setBackgroundResource(R.drawable.rounded_button2);
+        } else {
+            button.setSelected(false);
+            button.setBackgroundResource(R.drawable.rounded_button1);
+        }
     }
 
     private boolean isButtonSelected(int buttonId) {

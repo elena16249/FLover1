@@ -98,13 +98,17 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean isFavorite = false;
-                String currentFlowerId = dataList.get(holder.getAdapterPosition()).getName();
+                int position = holder.getAdapterPosition();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Flower flower = snapshot.getValue(Flower.class);
-                    if (flower != null && flower.getName() != null && currentFlowerId != null && flower.getName().equals(currentFlowerId)) {
-                        isFavorite = true;
-                        break;
+                if (position != RecyclerView.NO_POSITION && position < dataList.size()) {
+                    String currentFlowerId = dataList.get(position).getName();
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Flower flower = snapshot.getValue(Flower.class);
+                        if (flower != null && flower.getName() != null && currentFlowerId != null && flower.getName().equals(currentFlowerId)) {
+                            isFavorite = true;
+                            break;
+                        }
                     }
                 }
 

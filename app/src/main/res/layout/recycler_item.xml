@@ -26,17 +26,17 @@
             android:src="@drawable/rose"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
+
         <TextView
             android:id="@+id/recTitle"
-            android:layout_width="130dp"
+            android:layout_width="170dp"
             android:layout_height="30dp"
             android:layout_marginStart="19dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@id/recImage"
             android:text="Title"
             android:textColor="@color/green_700"
-            android:textSize="20sp" />
-
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/favButton"

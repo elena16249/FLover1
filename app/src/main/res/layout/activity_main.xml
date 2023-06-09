@@ -41,6 +41,8 @@
 
 
 
+
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/rose"
                     android:layout_width="100dp"
@@ -58,6 +60,25 @@
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/lavender_border"
                     android:text="Tulip"
+                    android:textAllCaps="false"
+                    android:textColor="@color/green_700" />
+                <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/lilia"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/lavender_border"
+                android:text="Lilia"
+                android:textAllCaps="false"
+                android:textColor="@color/green_700" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/peoines"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/lavender_border"
+                    android:text="Peonies"
                     android:textAllCaps="false"
                     android:textColor="@color/green_700" />
 

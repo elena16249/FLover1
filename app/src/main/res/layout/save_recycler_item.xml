@@ -35,11 +35,11 @@
             android:layout_width="130dp"
             android:layout_height="30dp"
             android:layout_marginStart="19dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@id/saveImage"
             android:text="Title"
             android:textColor="@color/green_700"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/deleteButton"
